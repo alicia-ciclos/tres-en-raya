@@ -20,7 +20,6 @@ function comprobarCasillaValida(casilla) {
 
 function ejecutarTurno(casilla) {
     casilla.textContent = FICHAS[turnoActual % 2];
-    turnoActual++;
 }
 
 function comprobarTablas() {
@@ -29,22 +28,49 @@ function comprobarTablas() {
     }
 }
 
-function comprobarHorizontal() {}
-function comprobarVertical() {}
-function comprobarDiagonalPrincipal() {}
-function comprobarDiagonalSecundaria() {}
+function comprobarHorizontal(numeroCasilla) {
+    if(document.getElementById("casilla-1").innerHTML==document.getElementById("casilla-2").innerHTML && document.getElementById("casilla-2").innerHTML==document.getElementById("casilla-3").innerHTML){
+        victoria=true;
+    }
+    if(document.getElementById("casilla-4").innerHTML==document.getElementById("casilla-5").innerHTML && document.getElementById("casilla-5").innerHTML==document.getElementById("casilla-6").innerHTML){
+        victoria=true;
+    }
+    if(document.getElementById("casilla-7").innerHTML==document.getElementById("casilla-8").innerHTML && document.getElementById("casilla-8").innerHTML==document.getElementById("casilla-9").innerHTML){
+        victoria=true;
+    }
+}
+
+
+function comprobarVertical(numeroCasilla) {
+    if(document.getElementById("casilla-1").innerHTML==document.getElementById("casilla-4").innerHTML && document.getElementById("casilla-4").innerHTML==document.getElementById("casilla-7").innerHTML){
+        victoria=true;
+    }
+    if(document.getElementById("casilla-2").innerHTML==document.getElementById("casilla-5").innerHTML && document.getElementById("casilla-5").innerHTML==document.getElementById("casilla-8").innerHTML){
+        victoria=true;
+    }
+    if(document.getElementById("casilla-3").innerHTML==document.getElementById("casilla-6").innerHTML && document.getElementById("casilla-6").innerHTML==document.getElementById("casilla-9").innerHTML){
+        victoria=true;
+    }
+}
+function comprobarDiagonalPrincipal() {
+    if(document.getElementById("casilla-1").innerHTML==document.getElementById("casilla-5").innerHTML && document.getElementById("casilla-5").innerHTML==document.getElementById("casilla-9").innerHTML){
+        victoria=true;
+    }
+}
+function comprobarDiagonalSecundaria() {
+    if(document.getElementById("casilla-3").innerHTML==document.getElementById("casilla-5").innerHTML && document.getElementById("casilla-5").innerHTML==document.getElementById("casilla-7").innerHTML){
+        victoria=true;
+    }
+}
 
 function comprobarFinDeJuego(casilla) {
     const numeroCasilla = casilla.textContent;
 
     comprobarHorizontal(numeroCasilla);
     comprobarVertical(numeroCasilla);
-    if(DIAGONAL_PRINCIPAL.includes(numeroCasilla)) {
-        comprobarDiagonalPrincipal(numeroCasilla);
-    }
-    if(DIAGONAL_SECUNDARIA.includes(numeroCasilla)) {
-        comprobarDiagonalSecundaria(numeroCasilla);
-    }
+    comprobarDiagonalPrincipal(numeroCasilla);
+    comprobarDiagonalSecundaria(numeroCasilla);
+
 
     comprobarTablas();
 
@@ -57,6 +83,7 @@ function comprobarFinDeJuego(casilla) {
         alert('Tablas');
         return;
     }
+    turnoActual++;
 }
 
 function casillaOnClick(event) {
@@ -66,6 +93,7 @@ function casillaOnClick(event) {
     if(comprobarCasillaValida(casilla)) {
         ejecutarTurno(casilla);
         comprobarFinDeJuego(casilla);
+        
     }
 }
 
