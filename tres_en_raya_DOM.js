@@ -94,14 +94,6 @@ function tres_en_raya(size){
         posiciones[1][i] = auxy;
         auxy ++;
     }
-    
-    /*   
-    var pos1 = document.getElementById("1");
-    
-    pos1.addEventListener('click',function(e){
-        pos1.innerHTML= jugador;
-    });
-    */
 
     // Estamos escuchando al archivo para que elemento da click    
     document.addEventListener('click',function(e){
