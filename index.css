@@ -1,0 +1,11 @@
+table{
+    text-align: center;
+    min-height: 150px;
+    border-collapse: collapse;
+    border: 1px solid black;
+    font-size: large;
+    font-weight: 100;
+}
+td{
+    min-width:50px;
+}
