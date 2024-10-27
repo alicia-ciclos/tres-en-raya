@@ -29,10 +29,74 @@ function comprobarTablas() {
     }
 }
 
-function comprobarHorizontal() {}
-function comprobarVertical() {}
-function comprobarDiagonalPrincipal() {}
-function comprobarDiagonalSecundaria() {}
+
+function comprobarHorizontal() {
+    if (
+        document.getElementById("casilla-1").textContent === document.getElementById("casilla-2").textContent &&
+        document.getElementById("casilla-2").textContent === document.getElementById("casilla-3").textContent &&
+        document.getElementById("casilla-1").textContent !== ""
+    ) {
+        victoria = true;
+    } else if (
+        document.getElementById("casilla-4").textContent === document.getElementById("casilla-5").textContent &&
+        document.getElementById("casilla-5").textContent === document.getElementById("casilla-6").textContent &&
+        document.getElementById("casilla-4").textContent !== ""
+    ) {
+        victoria = true;
+    } else if (
+        document.getElementById("casilla-7").textContent === document.getElementById("casilla-8").textContent &&
+        document.getElementById("casilla-8").textContent === document.getElementById("casilla-9").textContent &&
+        document.getElementById("casilla-7").textContent !== ""
+    ) {
+        victoria = true;
+    }
+}
+
+
+function comprobarVertical() {
+    if (
+        document.getElementById("casilla-1").textContent === document.getElementById("casilla-4").textContent &&
+        document.getElementById("casilla-4").textContent === document.getElementById("casilla-7").textContent &&
+        document.getElementById("casilla-1").textContent !== ""
+    ) {
+        victoria = true;
+    } else if (
+        document.getElementById("casilla-2").textContent === document.getElementById("casilla-5").textContent &&
+        document.getElementById("casilla-5").textContent === document.getElementById("casilla-8").textContent &&
+        document.getElementById("casilla-2").textContent !== ""
+    ) {
+        victoria = true;
+    } else if (
+        document.getElementById("casilla-3").textContent === document.getElementById("casilla-6").textContent &&
+        document.getElementById("casilla-6").textContent === document.getElementById("casilla-9").textContent &&
+        document.getElementById("casilla-3").textContent !== ""
+    ) {
+        victoria = true;
+    }
+}
+
+
+function comprobarDiagonalPrincipal() {
+    if (
+        document.getElementById("casilla-1").textContent === document.getElementById("casilla-4").textContent &&
+        document.getElementById("casilla-4").textContent === document.getElementById("casilla-7").textContent &&
+        document.getElementById("casilla-1").textContent !== ""
+    ) {
+        victoria = true;
+    } else if (
+        document.getElementById("casilla-2").textContent === document.getElementById("casilla-5").textContent &&
+        document.getElementById("casilla-5").textContent === document.getElementById("casilla-8").textContent &&
+        document.getElementById("casilla-2").textContent !== ""
+    ) {
+        victoria = true;
+    } else if (
+        document.getElementById("casilla-3").textContent === document.getElementById("casilla-6").textContent &&
+        document.getElementById("casilla-6").textContent === document.getElementById("casilla-9").textContent &&
+        document.getElementById("casilla-3").textContent !== ""
+    ) {
+        victoria = true;
+    }
+}
 
 function comprobarFinDeJuego(casilla) {
     const numeroCasilla = casilla.textContent;
