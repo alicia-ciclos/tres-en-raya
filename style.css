@@ -9,6 +9,7 @@ body {
     min-height: 300px;
     border-spacing: 0;
     font-size: 36pt;
+    background-color: rgb(245, 245, 126); 
 }
 
 .casilla {
@@ -19,6 +20,6 @@ body {
 }
 
 .casilla:hover {
-    background-color: aqua;
+    background-color: rgb(241, 193, 104);
     cursor: pointer;
 }

@@ -1,81 +1,89 @@
 "use strict";
 
-const CASILLAS_VALIDAS = ['1', '2', '3', '4', '5', '6', '7', '8', '9',];
-const FICHAS = ['X', 'O',];
+const CASILLAS_VALIDAS = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
+const FICHAS = ['X', 'O'];
 
-const FILA_IZQUIERDA = [1, 4, 7];
-const FILA_DERECHA = [3, 6, 9];
-const DIAGONAL_PRINCIPAL = [1, 5, 9];
-const DIAGONAL_SECUNDARIA = [3, 5, 7];
+const combinacionesGanadoras = [
+    [1, 2, 3], 
+    [4, 5, 6], 
+    [7, 8, 9], 
+    [1, 4, 7], 
+    [2, 5, 8], 
+    [3, 6, 9], 
+    [1, 5, 9], 
+    [3, 5, 7], 
+];
 
 let victoria = false;
 let tablas = false;
 let turnoActual = 0;
 
-
 function comprobarCasillaValida(casilla) {
     let contenido = casilla.textContent;
-    return CASILLAS_VALIDAS.includes(contenido);
+    return CASILLAS_VALIDAS.includes(contenido) && contenido !== 'X' && contenido !== 'O';
 }
 
 function ejecutarTurno(casilla) {
+    //Se actualiza el contenido de la casilla con la ficha actual
     casilla.textContent = FICHAS[turnoActual % 2];
     turnoActual++;
 }
 
 function comprobarTablas() {
-    if(turnoActual == 9 && !victoria) {
+    if (turnoActual === 9 && !victoria) {
         tablas = true;
     }
 }
 
-function comprobarHorizontal() {}
-function comprobarVertical() {}
-function comprobarDiagonalPrincipal() {}
-function comprobarDiagonalSecundaria() {}
+function comprobarVictoria() {
+    const casillas = Array.from(document.querySelectorAll('.casilla'));
+    const fichasActual = FICHAS[(turnoActual - 1) % 2]; //Ficha del jugador que acaba de jugar
 
-function comprobarFinDeJuego(casilla) {
-    const numeroCasilla = casilla.textContent;
-
-    comprobarHorizontal(numeroCasilla);
-    comprobarVertical(numeroCasilla);
-    if(DIAGONAL_PRINCIPAL.includes(numeroCasilla)) {
-        comprobarDiagonalPrincipal(numeroCasilla);
+    //Comprobamos todas las combinaciones ganadoras:
+    for (const combinacion of combinacionesGanadoras) {
+        if (
+            casillas[combinacion[0] - 1].textContent === fichasActual &&
+            casillas[combinacion[1] - 1].textContent === fichasActual &&
+            casillas[combinacion[2] - 1].textContent === fichasActual
+        ) {
+            victoria = true; 
+            return;
+        }
     }
-    if(DIAGONAL_SECUNDARIA.includes(numeroCasilla)) {
-        comprobarDiagonalSecundaria(numeroCasilla);
-    }
+}
 
+function comprobarFinDeJuego() {
+    comprobarVictoria();
     comprobarTablas();
 
-    if(victoria) {
-        alert('Gana ' + FICHAS[turnoActual % 2]);
+    if (victoria) {
+        alert('Ganan las ' + FICHAS[(turnoActual - 1) % 2]); 
+        alert('Facilito');
         return;
     }
 
-    if(tablas) {
-        alert('Tablas');
+    if (tablas) {
+        alert('Tablas'); 
         return;
     }
 }
 
 function casillaOnClick(event) {
     let casilla = event.target;
-    console.log("click en casilla "+ casilla.textContent);
+    console.log("click en casilla " + casilla.textContent);
 
-    if(comprobarCasillaValida(casilla)) {
+    if (comprobarCasillaValida(casilla)) {
         ejecutarTurno(casilla);
-        comprobarFinDeJuego(casilla);
+        comprobarFinDeJuego();
     }
 }
 
 function main() {
-    for(let i = 1; i <= 9; i++) {
-//        let casilla = document.getElementById(`casilla-${i}`);
+    for (let i = 1; i <= 9; i++) {
+        //let casilla = document.getElementById(`casilla-${i}`);
         let casilla = document.querySelector(`#casilla-${i}`);
         casilla.addEventListener('click', casillaOnClick);
     }
-
 }
 
 main();
