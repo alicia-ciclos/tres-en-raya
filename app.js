@@ -1,81 +1,71 @@
-"use strict";
+document.addEventListener("DOMContentLoaded", () => {
+    const casillas = document.querySelectorAll(".casilla");
+    const datos_tablero = [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null],
+    ];
+    let juego = true;
+    let turno = 1;
+    const status = document.getElementById("status");
+    status.textContent = `Turno: Jugador ${turno}`;
+    casillas.forEach(celda => {
+        celda.addEventListener("click", () => {
+            if (!juego) {
+                return 0
+            }
+            const x = celda.getAttribute("x");
+            const y = celda.getAttribute("y");
+            
+            if (validarPosicion(x, y)) {
+                if (turno == 1) {
+                    datos_tablero[x][y] = "X";
+                    celda.textContent = "X";
+                    turno = 2;
+                } else {
+                    datos_tablero[x][y] = "O";
+                    celda.textContent = "O";
+                    turno = 1;
+                }
+            }
+            if (!datos_tablero.flat().includes(null)){
+                setTimeout(() => {
+                    status.textContent = "Empate!";
+                }, 10);
+                juego = false;
+            }
+            if (checkVictoria()) {
+                if(turno == 1) {
+                    turno = 2;
+                } else { //si no pone que ha ganado el del turno siguiente
+                    turno = 1;
+                }
+                setTimeout(() => {
+                    status.textContent = `Jugador ${turno} gana!`;
+                }, 10);
+                juego = false;
+            }
+            if(juego) {
+                status.textContent = `Turno: Jugador ${turno}`;
+            }
+        });
+    });
 
-const CASILLAS_VALIDAS = ['1', '2', '3', '4', '5', '6', '7', '8', '9',];
-const FICHAS = ['X', 'O',];
-
-const FILA_IZQUIERDA = [1, 4, 7];
-const FILA_DERECHA = [3, 6, 9];
-const DIAGONAL_PRINCIPAL = [1, 5, 9];
-const DIAGONAL_SECUNDARIA = [3, 5, 7];
-
-let victoria = false;
-let tablas = false;
-let turnoActual = 0;
-
-
-function comprobarCasillaValida(casilla) {
-    let contenido = casilla.textContent;
-    return CASILLAS_VALIDAS.includes(contenido);
-}
-
-function ejecutarTurno(casilla) {
-    casilla.textContent = FICHAS[turnoActual % 2];
-    turnoActual++;
-}
-
-function comprobarTablas() {
-    if(turnoActual == 9 && !victoria) {
-        tablas = true;
-    }
-}
-
-function comprobarHorizontal() {}
-function comprobarVertical() {}
-function comprobarDiagonalPrincipal() {}
-function comprobarDiagonalSecundaria() {}
-
-function comprobarFinDeJuego(casilla) {
-    const numeroCasilla = casilla.textContent;
-
-    comprobarHorizontal(numeroCasilla);
-    comprobarVertical(numeroCasilla);
-    if(DIAGONAL_PRINCIPAL.includes(numeroCasilla)) {
-        comprobarDiagonalPrincipal(numeroCasilla);
-    }
-    if(DIAGONAL_SECUNDARIA.includes(numeroCasilla)) {
-        comprobarDiagonalSecundaria(numeroCasilla);
-    }
-
-    comprobarTablas();
-
-    if(victoria) {
-        alert('Gana ' + FICHAS[turnoActual % 2]);
-        return;
-    }
-
-    if(tablas) {
-        alert('Tablas');
-        return;
-    }
-}
-
-function casillaOnClick(event) {
-    let casilla = event.target;
-    console.log("click en casilla "+ casilla.textContent);
-
-    if(comprobarCasillaValida(casilla)) {
-        ejecutarTurno(casilla);
-        comprobarFinDeJuego(casilla);
-    }
-}
-
-function main() {
-    for(let i = 1; i <= 9; i++) {
-//        let casilla = document.getElementById(`casilla-${i}`);
-        let casilla = document.querySelector(`#casilla-${i}`);
-        casilla.addEventListener('click', casillaOnClick);
+    function validarPosicion(x, y) {
+        return datos_tablero[x][y] === null;
     }
 
-}
-
-main();
+    function checkVictoria() {
+        for (let i = 0; i < 3; i++) {
+            if (datos_tablero[i][0] && datos_tablero[i][0] === datos_tablero[i][1] && datos_tablero[i][1] === datos_tablero[i][2]){
+                return true;
+            }    
+            if (datos_tablero[0][i] && datos_tablero[0][i] === datos_tablero[1][i] && datos_tablero[1][i] === datos_tablero[2][i]){
+                return true;
+            }
+        }
+        if (datos_tablero[0][0] && datos_tablero[0][0] === datos_tablero[1][1] && datos_tablero[1][1] === datos_tablero[2][2]) return true;
+        if (datos_tablero[0][2] && datos_tablero[0][2] === datos_tablero[1][1] && datos_tablero[1][1] === datos_tablero[2][0]) return true;
+        return false;
+    }
+});
