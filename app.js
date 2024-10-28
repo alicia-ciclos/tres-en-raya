@@ -39,6 +39,10 @@ function comprobarVictoria() {
 
         // Si encuentro combinación ganadora
         if((a === b) && (a === c)) {
+            combinacion.forEach(numero => {
+                let casilla = document.getElementById(`casilla-${numero}`);
+                casilla.style.backgroundColor = 'lightgreen'; // Cambia el color según prefieras
+            });
             return true;
         }
     }
@@ -47,6 +51,13 @@ function comprobarVictoria() {
     return false;
 }
 
+    function colorearTablas() {
+        for (let i = 1; i <= 9; i++) {
+            let casilla = document.getElementById(`casilla-${i}`);
+            casilla.style.backgroundColor = 'red'; // Cambia el color según prefieras
+        }
+    }
+    
 function comprobarFinDeJuego(casilla) {
     const numeroCasilla = casilla.textContent;
 
@@ -60,7 +71,9 @@ function comprobarFinDeJuego(casilla) {
     if(comprobarTablas()) {
         let mensajes = document.getElementById('mensajes');
         mensajes.textContent = 'Tablas';
+        colorearTablas();
         finalizarJuego();
+
         return;
     }
 }
