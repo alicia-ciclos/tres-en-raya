@@ -3,6 +3,7 @@
 const CASILLAS_VALIDAS = ['1', '2', '3', '4', '5', '6', '7', '8', '9',];
 const FICHAS = ['X', 'O',]; //En js da igual si ponemos una coma al final sin contenido
 
+
 /*
 const FILA_IZQUIERDA = [1, 4, 7];
 const FILA_CENTRO = [2, 5, 8];
@@ -10,6 +11,7 @@ const FILA_DERECHA = [3, 6, 9];
 const DIAGONAL_PRINCIPAL = [1, 5, 9];
 const DIAGONAL_SECUNDARIA = [3, 5, 7];
 */
+
 
 const COMBINACIONES_GANADORAS = [
     [1, 2, 3],
@@ -19,13 +21,22 @@ const COMBINACIONES_GANADORAS = [
     [2, 5, 8],
     [3, 6, 9],
     [1, 5, 9],
+
     [3, 5, 7]  
 ]
+
+    [3, 5, 7],
+];
+
+let turnoActual = 0;
+
+
 
 function comprobarCasillaValida(casilla) {
     let contenido = casilla.textContent;
     return CASILLAS_VALIDAS.includes(contenido);
 }
+
 
 let turnoActual = 0;
 /*
@@ -85,8 +96,17 @@ function finalizarJuego(){ //Desactivar evento click al empatar o al ganar uno
     for (let i = 0; i <= 9; i++) {
         let casilla = document.getElementById(`casila-${i}`);
         casilla.removeEventListener('click', casillaClick);
+
+
+function comprobarTablas() {
+    if(turnoActual == 8) {
+        return true;
+
     }
+
+    return false;
 }
+
 
 /*
 function comprobarHorizontal() {
@@ -128,18 +148,49 @@ const numeroCasilla = casilla.textContent;
     if(comprobarVictoria()) { //cambiado de victoria a comprobarVictoria
         let mensaje = document.getElementById(`mensajes`);
         mensaje.textContent = 'Ganan las ' + FICHAS[turnoActual % 2];  //Quitamos el alert = 
+
+function comprobarVictoria() {
+    for(let combinacion of COMBINACIONES_GANADORAS) {
+        let a = document.getElementById(`casilla-${combinacion[0]}`).textContent;
+        let b = document.getElementById(`casilla-${combinacion[1]}`).textContent;
+        let c = document.getElementById(`casilla-${combinacion[2]}`).textContent;
+
+        // Si encuentro combinación ganadora
+        if((a === b) && (a === c)) {
+            return true;
+        }
+    }
+
+    // de lo contrario...
+    return false;
+}
+
+function comprobarFinDeJuego(casilla) {
+    const numeroCasilla = casilla.textContent;
+
+    if(comprobarVictoria()) {
+        let mensajes = document.getElementById('mensajes');
+        mensajes.textContent = 'Gana ' + FICHAS[turnoActual % 2];
+
         finalizarJuego();
         return;
     }
+
 
     if(comprobarTablas()) { //cambiado de tablas a comprobarTablas
         //alert('Tablas');
         let mensaje = document.getElementById(`mensajes`);
         mensaje.textContent = 'Tablas';
+
+    if(comprobarTablas()) {
+        let mensajes = document.getElementById('mensajes');
+        mensajes.textContent = 'Tablas';
+
         finalizarJuego();
         return;
     }
 }
+
 
 function casillaClick(evento) {
     let casilla = evento.target;
@@ -147,6 +198,20 @@ function casillaClick(evento) {
 
     if(comprobarCasillaValida(casilla)) {
         //ejecutarTurno(casilla);
+
+function finalizarJuego() {
+    for(let i = 1; i <= 9; i++) {
+        let casilla = document.getElementById(`casilla-${i}`);
+        casilla.removeEventListener('click', casillaOnClick);
+    }    
+}
+
+function casillaOnClick(event) {
+    let casilla = event.target;
+    console.log("click en casilla "+ casilla.textContent);
+
+    if(comprobarCasillaValida(casilla)) {
+
         casilla.textContent = FICHAS[turnoActual % 2];
         comprobarFinDeJuego(casilla);
         turnoActual++;
@@ -158,8 +223,12 @@ function casillaClick(evento) {
 function main() {
     for(let i = 1; i <= 9; i++) {
         let casilla = document.getElementById(`casilla-${i}`);
+
 //      let casilla = document.querySelector(`#casilla-${i}`);
         casilla.addEventListener('click', casillaClick);
+
+        casilla.addEventListener('click', casillaOnClick);
+
     }
     let turnos = document.getElementById('turno');
     turno.textContent="Turno de X";
