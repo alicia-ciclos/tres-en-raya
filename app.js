@@ -1,7 +1,7 @@
 "use strict";
 
 const CASILLAS_VALIDAS = ['1', '2', '3', '4', '5', '6', '7', '8', '9',];
-const FICHAS = ['X', 'O',];
+const FICHAS = ['X', 'O',]; //En js da igual si ponemos una coma al final sin contenido
 
 const FILA_IZQUIERDA = [1, 4, 7];
 const FILA_DERECHA = [3, 6, 9];
@@ -29,10 +29,33 @@ function comprobarTablas() {
     }
 }
 
-function comprobarHorizontal() {}
-function comprobarVertical() {}
-function comprobarDiagonalPrincipal() {}
-function comprobarDiagonalSecundaria() {}
+function comprobarLinea(linea) { //Si todas las filas en una linea ya sea horiz, vert o diag son iguales, victoria = true.
+    const ficha = FICHAS[turnoActual % 2];
+    if (linea.every(num => document.querySelector(`#casilla-${num}`).textContent === ficha)) { //Método every para verificar si todas las casillas en linea contienen la ficha del jugador actual.
+        victoria = true;
+    }
+}
+
+function comprobarHorizontal() {
+    comprobarLinea([1, 2, 3]);
+    comprobarLinea([4, 5, 6]);
+    comprobarLinea([7, 8, 9]);
+}
+
+function comprobarVertical() { //Esto no se si es correcto ?
+    comprobarLinea(FILA_IZQUIERDA);
+    comprobarLinea(FILA_CENTRO);
+    comprobarLinea(FILA_DERECHA);
+    
+}
+
+function comprobarDiagonalPrincipal() {
+    comprobarLinea(DIAGONAL_PRINCIPAL);
+}
+
+function comprobarDiagonalSecundaria() {
+    comprobarLinea(DIAGONAL_SECUNDARIA);
+}
 
 function comprobarFinDeJuego(casilla) {
     const numeroCasilla = casilla.textContent;
@@ -71,7 +94,7 @@ function casillaOnClick(event) {
 
 function main() {
     for(let i = 1; i <= 9; i++) {
-//        let casilla = document.getElementById(`casilla-${i}`);
+//      let casilla = document.getElementById(`casilla-${i}`);
         let casilla = document.querySelector(`#casilla-${i}`);
         casilla.addEventListener('click', casillaOnClick);
     }
