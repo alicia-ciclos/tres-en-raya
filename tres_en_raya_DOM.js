@@ -142,20 +142,44 @@ function tres_en_raya(size){
 function combinar_ganar(letra,tablero){
 
     if(tablero[0][0] == letra && tablero[0][1] == letra && tablero[0][2] == letra){
+        document.getElementById("1").setAttribute('class','ganar');
+        document.getElementById("2").setAttribute('class','ganar');
+        document.getElementById("3").setAttribute('class','ganar');
         return true;
     }else if(tablero[1][0] == letra && tablero[1][1] == letra && tablero[1][2] == letra){
+        document.getElementById("4").setAttribute('class','ganar');
+        document.getElementById("5").setAttribute('class','ganar');
+        document.getElementById("6").setAttribute('class','ganar');
         return true;
     }else if(tablero[2][0] == letra && tablero[2][1] == letra && tablero[2][2] == letra){
+        document.getElementById("7").setAttribute('class','ganar');
+        document.getElementById("8").setAttribute('class','ganar');
+        document.getElementById("9").setAttribute('class','ganar');
         return true;
     }else if(tablero[0][0] == letra && tablero[1][0] == letra && tablero[2][0] == letra){
+        document.getElementById("1").setAttribute('class','ganar');
+        document.getElementById("4").setAttribute('class','ganar');
+        document.getElementById("7").setAttribute('class','ganar');
         return true;
     }else if(tablero[0][1] == letra && tablero[1][1] == letra && tablero[2][1] == letra){
+        document.getElementById("2").setAttribute('class','ganar');
+        document.getElementById("5").setAttribute('class','ganar');
+        document.getElementById("8").setAttribute('class','ganar');
         return true;
     }else if(tablero[0][2] == letra && tablero[1][2] == letra && tablero[2][2] == letra){
+        document.getElementById("3").setAttribute('class','ganar');
+        document.getElementById("6").setAttribute('class','ganar');
+        document.getElementById("9").setAttribute('class','ganar');
         return true;
     }else if(tablero[0][0] == letra && tablero[1][1] == letra && tablero[2][2] == letra){
+        document.getElementById("1").setAttribute('class','ganar');
+        document.getElementById("5").setAttribute('class','ganar');
+        document.getElementById("9").setAttribute('class','ganar');
         return true;
     }else if(tablero[2][0] == letra && tablero[1][1] == letra && tablero[0][2] == letra){
+        document.getElementById("3").setAttribute('class','ganar');
+        document.getElementById("5").setAttribute('class','ganar');
+        document.getElementById("7").setAttribute('class','ganar');
         return true;
     }else {
         return false;
