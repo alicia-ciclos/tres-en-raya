@@ -53,17 +53,20 @@ function comprobarVictoria() {
 }
 
 function comprobarFinDeJuego() {
+    
     comprobarVictoria();
-    comprobarTablas();
-
     if (victoria) {
-        alert('Ganan las ' + FICHAS[(turnoActual - 1) % 2]); 
-        alert('Facilito');
+        document.getElementById('mensajes').textContent = '¡Ganan las ' + FICHAS[(turnoActual - 1) % 2]+ '!';
+        //alert('Facilito');
+        finalizarJuego();
         return;
     }
 
+    comprobarTablas();
     if (tablas) {
-        alert('Tablas'); 
+        document.getElementById('mensajes').textContent = 'Tablas';
+        //alert('Tablas');
+        finalizarJuego(); 
         return;
     }
 }
@@ -71,10 +74,25 @@ function comprobarFinDeJuego() {
 function casillaOnClick(event) {
     let casilla = event.target;
     console.log("click en casilla " + casilla.textContent);
+    
+    //Añado otro <p></p> en el que me muestre de quien es el turno: 
+    /*if(FICHAS[(turnoActual-1) % 2] === undefined){
+        document.getElementById('turno').textContent = 'Empiezan las X';
+    }else{
+    }*/
+    document.getElementById('turno').textContent = 'Es el turno de las ' + FICHAS[(turnoActual+1)%2];
 
     if (comprobarCasillaValida(casilla)) {
         ejecutarTurno(casilla);
         comprobarFinDeJuego();
+    }
+}
+
+function finalizarJuego(){ 
+    //Añadimos esta función para que no se pueda modificar el tablero al acabar:
+    for (let i = 1; i <= 9; i++) {
+        let casilla = document.querySelector(`#casilla-${i}`);
+        casilla.removeEventListener('click', casillaOnClick);
     }
 }
 
