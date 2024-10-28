@@ -1,24 +1,23 @@
-body {
+body{
     max-width: 480px;
     margin: auto;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: Verdana;
 }
 
-.tablero {
+.tablero{
     border: solid;
     min-height: 300px;
     border-spacing: 0;
     font-size: 36pt;
 }
 
-.casilla {
-    border: solid 1px;
-    min-width: 100px;
-    min-height: 100px;
+.casilla{
     text-align: center;
+    min-width: 100px;
+    border: solid 1px;
 }
 
-.casilla:hover {
-    background-color: aqua;
-    cursor: pointer;
+.casilla:hover{
+    background-color: lightblue;
+    cursor: pointer;    
 }
