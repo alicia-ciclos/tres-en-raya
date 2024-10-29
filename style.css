@@ -1,9 +1,11 @@
+/* Código CSS para el body */
 body {
     max-width: 480px;
     margin: auto;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+/* Código CSS para el tablero */
 .tablero {
     border: solid;
     min-height: 300px;
@@ -11,6 +13,7 @@ body {
     font-size: 36pt;
 }
 
+/* Código CSS para las casillas del tablero */
 .casilla {
     border: solid 1px;
     min-width: 100px;
@@ -18,7 +21,8 @@ body {
     text-align: center;
 }
 
+/* Código CSS para el hover de las casillas */
 .casilla:hover {
-    background-color: aqua;
+    background-color: #f0e68c;
     cursor: pointer;
 }
