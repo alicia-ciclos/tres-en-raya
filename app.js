@@ -1,5 +1,6 @@
 "use strict";
 
+//Falta colorear el fondo de todas las celdas cuando se llega a un empate.
 const CASILLAS_VALIDAS = ['1', '2', '3', '4', '5', '6', '7', '8', '9',];
 const FICHAS = ['X', 'O',]; //En js da igual si ponemos una coma al final sin contenido
 
