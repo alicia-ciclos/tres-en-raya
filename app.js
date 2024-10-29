@@ -1,5 +1,5 @@
 "use strict";
-
+//Tres en raya alicia
 //Falta pintar el fondo de todas las posiciones cuando se empata.
 
 const CASILLAS_VALIDAS = ['1', '2', '3', '4', '5', '6', '7', '8', '9',];
