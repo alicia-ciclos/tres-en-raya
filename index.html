@@ -7,11 +7,14 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <header>
         <nav></nav>
     </header>
 
-    <h1>Tres en raya</h1>
+    <h1>Tres en Raya</h1>
+
+    <!-- Creamos el tablero -->
     <table id="tablero" class="tablero">
         <tr>
             <td id="casilla-1" class="casilla">1</td>
@@ -30,11 +33,16 @@
         </tr>
     </table>
 
-    <p id="mensajes"></p>
+    <p id="mensajes"></p> <!-- Mensaje indicando el resultado de la partida -->
+    <p id="turno_actual"></p> <!-- Mensaje indicando el turno actual -->
 
-    <h2>Instrucciones</h2>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quod vitae architecto quo, ipsa perspiciatis eum modi sint, autem totam sit sapiente quae, voluptas non vel ea voluptatem pariatur! Maiores, iusto.</p>
+    <!-- Mostramos las instrucciones-->
+    <h2>Instrucciones:</h2>
 
-    <script src="app.js" defer></script>
+    <p>Cada jugador elige las X o las O, y en su turno debe poner una, intentando conseguir 3 seguidas en una línea vertical,
+    horizontal o diagonal. Una vez se llenan todos los espacios se termina la partida.</p>
+
+    <script src="app.js"></script>
+
 </body>
 </html>
