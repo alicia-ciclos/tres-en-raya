@@ -47,6 +47,12 @@ function comprobarVictoria() {
             casillas[combinacion[2] - 1].textContent === fichasActual
         ) {
             victoria = true; 
+
+            // Pinta de naranja las casillas ganadoras:
+            combinacion.forEach(index => {
+                casillas[index - 1].style.backgroundColor = 'orange';
+            });
+
             return;
         }
     }
@@ -57,7 +63,6 @@ function comprobarFinDeJuego() {
     comprobarVictoria();
     if (victoria) {
         document.getElementById('mensajes').textContent = '¡Ganan las ' + FICHAS[(turnoActual - 1) % 2]+ '!';
-        //alert('Facilito');
         finalizarJuego();
         return;
     }
@@ -65,7 +70,6 @@ function comprobarFinDeJuego() {
     comprobarTablas();
     if (tablas) {
         document.getElementById('mensajes').textContent = 'Tablas';
-        //alert('Tablas');
         finalizarJuego(); 
         return;
     }
@@ -73,23 +77,27 @@ function comprobarFinDeJuego() {
 
 function casillaOnClick(event) {
     let casilla = event.target;
-    console.log("click en casilla " + casilla.textContent);
-    
-    //Añado otro <p></p> en el que me muestre de quien es el turno: 
-    /*if(FICHAS[(turnoActual-1) % 2] === undefined){
-        document.getElementById('turno').textContent = 'Empiezan las X';
-    }else{
-    }*/
-    document.getElementById('turno').textContent = 'Es el turno de las ' + FICHAS[(turnoActual+1)%2];
+    console.log("Has clicado en la casilla " + casilla.textContent);
 
     if (comprobarCasillaValida(casilla)) {
         ejecutarTurno(casilla);
         comprobarFinDeJuego();
     }
+
+    //Añado otro <p></p> en el que me muestre de quien es el turno: 
+    document.getElementById('turno').textContent = 'Es el turno de las ' + FICHAS[(turnoActual)%2];
+
+    //.style
+
+    if(victoria){
+        
+    }
+    
 }
 
+//Añadimos esta función para que no se pueda modificar el tablero al acabar:
+//(Además, la llamo desde comprobarVictoria y comprobarTablas)
 function finalizarJuego(){ 
-    //Añadimos esta función para que no se pueda modificar el tablero al acabar:
     for (let i = 1; i <= 9; i++) {
         let casilla = document.querySelector(`#casilla-${i}`);
         casilla.removeEventListener('click', casillaOnClick);
